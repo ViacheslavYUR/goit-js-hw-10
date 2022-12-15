@@ -25,7 +25,6 @@ function onFetch(e) {
 
   fetchCountries(searchCounties)
     .then(data => {
-      console.log(data);
       if (data.length > 10) {
         clearRender();
         Notiflix.Notify.info(
@@ -50,7 +49,7 @@ function onFetch(e) {
 function renderList(countries) {
   const listMarkup = countries
     .map(({ flags, name }) => {
-      return `<li><img src="${flags.svg}" alt="flag ${name.official}" width="50" hight="50"><p>${name.official}</p></li>`;
+      return `<li class="country-list__item"><img src="${flags.svg}" alt="flag ${name.official}" width="50" ><p>${name.official}</p></li>`;
     })
     .join('');
 
@@ -59,13 +58,15 @@ function renderList(countries) {
 
 function renderOneCountry(country) {
   const { flags, name, capital, population, languages } = country[0];
-  refs.box.innerHTML = `<img src="${flags.svg}" alt="flag ${
-    name.official
-  }" width="70" >
-  <p>${name.official}</p>
-    <p><b>Capital: </b>${capital}</p>
-    <p><b>Population: </b>${population}</p>
-    <p><b>Languages: </b>${Object.values(languages)}</p>`;
+  refs.box.innerHTML = `<div><img class="country-info__flag" src="${
+    flags.svg
+  }" alt="flag ${name.official}" width='70'>
+  <p class="country-info__name" >${name.official}</p></div>
+    <p class="country-info__text"><b>Capital: </b>${capital}</p>
+    <p class="country-info__text"><b>Population: </b>${population}</p>
+    <p class="country-info__text"><b>Languages: </b>${Object.values(
+      languages
+    )}</p>`;
 }
 
 function clearRender() {
